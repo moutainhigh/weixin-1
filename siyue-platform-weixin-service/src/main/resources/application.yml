@@ -1,0 +1,94 @@
+spring:
+  profiles:
+    active: production
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        prefer-ip-address: true
+  application:
+      name: weixin-service
+  datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      type: com.zaxxer.hikari.HikariDataSource
+      url: jdbc:mysql://localhost:3306/siyueli-platform?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+      username: root
+      password: root
+      hikari:
+        connection-timeout: 5000
+        maximum-pool-size: 25
+  redis:
+      timeout: 5000
+      commandTimeout: 5000
+      jedis:
+         pool:
+           max-active: 8
+           min-idle: 0
+           max-idle: 8
+           max-wait: 1000
+      cluster:
+            nodes: 127.0.0.1:7001,127.0.0.1:7002,127.0.0.1:7003,127.0.0.1:7004,127.0.0.1:7005,127.0.0.1:7006
+  flyway:
+    enabled: true
+    ignore-missing-migrations: true
+    out-of-order: true
+    validate-on-migrate: true
+  zipkin:
+    base-url: http://localhost:8006
+server:
+  port: 7014
+
+mybatis-plus:
+  mapper-locations: classpath:/cn/siyue/platform/weixin/service/mapper/**/xml/*Mapper.xml
+  global-config:
+      id-type: 0
+      field-strategy: 2
+      db-column-underline: true
+      refresh-mapper: true
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+  configuration:
+      map-underscore-to-camel-case: true
+      cache-enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+weixin:
+  miniprogram:
+    appid:
+    secret:
+    key:
+    grant_type: authorization_code
+    url: https://api.weixin.qq.com/sns/jscode2session
+    mch_id:
+    recharge_notify_url: /payment/rechargeNotify
+  mp:
+    appId: wx5f36e031f182eae4
+    secret: 300734676cc5f9301bc637c5d1e3cdb7
+    token: 0647437c-a001-4c35-91ef-f31d3c7e2db7
+    aesKey:
+
+sms:
+  uri_send_sms: https://sms.yunpian.com/v2/sms/single_send.json
+  apikey:
+member:
+  api_url: https://www.sipin.com/dev/siyueli/api/member
+  recharge_award_points: 100
+  aes_key: RxPXACQqepQrdy4e/HqMyw==
+  md5_key: RxPXACQqepQrdy4e/HqMyw==
+
+logging:
+  config: classpath:logback-spring.xml
+  path: /Users/admin/Workspace/logs3
+  contextName: weixin_service
+  appDir: weixin_service
+

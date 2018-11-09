@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.siyue.platform.weixin.service.mapper.WeixinCardCouponMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.siyue.platform.weixin.common.entity.WeixinCardCoupon">
+        <id column="id" property="id" />
+        <result column="task_id" property="taskId" />
+        <result column="color" property="color" />
+        <result column="cover_image_url" property="coverImageUrl" />
+        <result column="cover_image_secret" property="coverImageSecret" />
+        <result column="cover_material_url" property="coverMaterialUrl" />
+        <result column="cover_intro" property="coverIntro" />
+        <result column="use_notice" property="useNotice" />
+        <result column="time_limit" property="timeLimit" />
+        <result column="center_title" property="centerTitle" />
+        <result column="center_sub_title" property="centerSubTitle" />
+        <result column="center_url" property="centerUrl" />
+        <result column="center_appid" property="centerAppid" />
+        <result column="center_page_path" property="centerPagePath" />
+        <result column="custom_enter_name" property="customEnterName" />
+        <result column="custom_enter_guide" property="customEnterGuide" />
+        <result column="custom_enter_url" property="customEnterUrl" />
+        <result column="share_link" property="shareLink" />
+        <result column="share_give" property="shareGive" />
+        <result column="card_id" property="cardId" />
+        <result column="stock_qty" property="stockQty" />
+        <result column="status" property="status" />
+        <result column="refuse_reason" property="refuseReason" />
+        <result column="ext" property="ext" />
+        <result column="create_at" property="createAt" />
+        <result column="update_at" property="updateAt" />
+    </resultMap>
+
+    <resultMap id="searchResultMap" extends="BaseResultMap" type="cn.siyue.platform.weixin.common.dto.weixincardcoupon.SearchCardCouponDto">
+        <result column="name" property="name" />
+        <result column="type_id" property="typeId" />
+        <result column="valid_time_start_at" property="validTimeStartAt" />
+        <result column="valid_time_end_at" property="validTimeEndAt" />
+        <result column="receipt_start_day" property="receiptStartDay" />
+        <result column="receipt_end_day" property="receiptEndDay" />
+    </resultMap>
+
+    <select id="searchCoupon" resultMap="searchResultMap">
+        select wcc.*, ct.name, ct.type_id,ct.valid_time_start_at,ct.valid_time_end_at,ct.receipt_start_day,ct.receipt_end_day
+        from weixin_card_coupon wcc
+        join coupon_task ct on wcc.task_id = ct.id
+        where 1=1
+        <if test="queryParam.name != null and queryParam.name != ''.toString()">
+          and ct.name like #{queryParam.name}
+        </if>
+        <if test="queryParam.typeId != null">
+           and ct.type_id = #{queryParam.typeId}
+        </if>
+        <if test="queryParam.status != null">
+          and wcc.status = #{queryParam.status}
+        </if>
+    </select>
+
+</mapper>

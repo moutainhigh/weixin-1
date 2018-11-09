@@ -1,0 +1,23 @@
+CREATE TABLE `weixin_card_coupon` (
+	`id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
+	`task_id` bigint(20) NOT NULL COMMENT '卡券任务id',
+	`color` varchar(16) NOT NULL COMMENT '卡券颜色',
+	`cover_image_url` varchar(255) NULL COMMENT '封面图片url',
+	`cover_image_secret` varchar(255) NULL COMMENT '封面图片密钥',
+	`cover_intro` varchar(255) NULL COMMENT '封面简介',
+	`use_notice` varchar(255) NULL COMMENT '使用须知',
+	`center_title` varchar(255) NULL COMMENT 'center_title',
+	`center_sub_title` varchar(255) NULL COMMENT 'center_sub_title',
+	`center_url` varchar(255) NULL COMMENT 'center入口url',
+	`center_appid` varchar(128) NULL COMMENT 'center入口appid',
+	`center_page_path` varchar(255) NULL COMMENT 'center入口路径',
+	`custom_enter_name` varchar(255) NULL COMMENT '自定义入口名称',
+	`custom_enter_guide` varchar(255) NULL COMMENT '自定义入口引导语',
+	`custom_enter_url` varchar(255) NULL COMMENT '自定义入口URL',
+	`share_link` tinyint(1) NOT NULL COMMENT '用户可以分享领券链接',
+	`share_give` tinyint(1) NOT NULL COMMENT '用户领券后可转赠其他好友',
+	`create_at` datetime NOT NULL COMMENT '创建时间',
+	`update_at` datetime NOT NULL COMMENT '更新时间',
+	PRIMARY KEY (`id`),
+	FOREIGN KEY (`task_id`) REFERENCES `coupon_task` (`id`)
+) COMMENT='微信卡券表';

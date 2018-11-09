@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active: develop
+logging:
+  level:
+    com.siyueli.platform.service.member.client.service: DEBUG

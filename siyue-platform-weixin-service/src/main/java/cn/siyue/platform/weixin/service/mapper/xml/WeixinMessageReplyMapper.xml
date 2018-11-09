@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.siyue.platform.weixin.service.mapper.WeixinMessageReplyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.siyue.platform.weixin.common.entity.WeixinMessageReply">
+        <id column="id" property="id" />
+        <result column="type" property="type" />
+        <result column="reply_type" property="replyType" />
+        <result column="match_type" property="matchType" />
+        <result column="keyword" property="keyword" />
+        <result column="content" property="content" />
+        <result column="media_id" property="mediaId" />
+        <result column="title" property="title" />
+        <result column="status" property="status" />
+        <result column="create_at" property="createAt" />
+        <result column="update_at" property="updateAt" />
+    </resultMap>
+
+</mapper>

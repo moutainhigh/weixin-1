@@ -1,0 +1,66 @@
+spring:
+  profiles:
+    active: production
+  application:
+    name: weixin-consumer
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        prefer-ip-address: true
+  zipkin:
+    base-url: http://localhost:8006
+  redis:
+    timeout: 5000
+    commandTimeout: 5000
+    jedis:
+       pool:
+         max-active: 8
+         min-idle: 0
+         max-idle: 8
+         max-wait: 1000
+    cluster:
+          nodes: 127.0.0.1:7001,127.0.0.1:7002,127.0.0.1:7003,127.0.0.1:7004,127.0.0.1:7005,127.0.0.1:7006
+server:
+  port: 7015
+
+#开启Feign对Hystrix的支持
+feign:
+  hystrix:
+    enabled: true
+  httpclient:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 8000
+
+weixin:
+  mp:
+    appId: wx5f36e031f182eae4
+    secret: 300734676cc5f9301bc637c5d1e3cdb7
+    token: 0647437c-a001-4c35-91ef-f31d3c7e2db7
+    aesKey:
+    logoUrl: http://mmbiz.qpic.cn/mmbiz_png/icExomlPKVtqYe0GmqyXSuJQicbDm1we3RRFibpZje4kIfVTTq6OExZozia3pCagGZD8TI0BaNVGXibMoibauHEGibLdA/0
+    servicePhone: 020-88888888
+
+logging:
+  config: classpath:logback-spring.xml
+  path: /Users/admin/Workspace/logs3
+  contextName: weixin_client
+  appDir: weixin_client
